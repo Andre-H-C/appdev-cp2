@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Atores e Atrizes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Atores e Atrizes</h1>
+        <div class="busca-container">
+            <input 
+                type="text" 
+                id="campo-busca" 
+                placeholder="Pesquisar por nome..." 
+                oninput="filtrarAtores()"
+            >
+        </div>
+    </header>
+
+    <main>
+        <div id="grid-atores" class="grid-atores">
+        </div>
+    </main>
+
+    <script src="dados.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
