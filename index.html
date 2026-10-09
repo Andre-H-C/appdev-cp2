@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de Atores e Atrizes</title>
+    <title>Find Your Actor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>Atores e Atrizes</h1>
+        <p class="subtitle">BY ANDRÉ CAMPONUCCI</p>
+        <h1>Find Your Actor</h1>
         <div class="busca-container">
-            <input 
-                type="text" 
-                id="campo-busca" 
-                placeholder="Pesquisar por nome..." 
-                oninput="filtrarAtores()"
-            >
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input 
+                    type="text" 
+                    id="campo-busca" 
+                    placeholder="Search" 
+                    oninput="filtrarAtores()"
+                >
+            </div>
         </div>
     </header>
 
     <main>
-        <div id="grid-atores" class="grid-atores">
-        </div>
+        <div id="grid-atores" class="grid-atores"></div>
     </main>
 
     <script src="dados.js"></script>
