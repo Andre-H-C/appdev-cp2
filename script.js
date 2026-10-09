@@ -1,39 +1,52 @@
-const gridAtores = document.getElementById("grid-atores");
-const campoBusca = document.getElementById("campo-busca");
+document.addEventListener("DOMContentLoaded", () => {
+    const gridAtores = document.getElementById("grid-atores");
+    const campoBusca = document.getElementById("campo-busca");
 
-function formatarData(dataISO) {
-    if (!dataISO) return "N/D";
-    const [ano, mes, dia] = dataISO.split("-");
-    return `${dia}/${mes}/${ano}`;
-}
+    const listaOriginal = (typeof atores !== "undefined") ? atores : ((typeof dados !== "undefined") ? dados : []);
 
-function renderizarAtores(lista) {
-    gridAtores.innerHTML = "";
-
-    if (lista.length === 0) {
-        gridAtores.innerHTML = `<p style="grid-column: 1/-1; text-align: center; font-size: 18px;">Nenhum ator ou atriz encontrado.</p>`;
-        return;
+    function formatarData(dataISO) {
+        if (!dataISO) return "N/D";
+        const partes = dataISO.split("-");
+        if (partes.length < 3) return dataISO;
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
     }
 
-    lista.forEach((ator) => {
-        gridAtores.innerHTML += `
-            <div class="card-ator">
-                <img src="${ator.foto}" alt="${ator.nome}">
-                <h2>${ator.nome}</h2>
-                <p><strong>País:</strong> ${ator.pais || 'Não informado'}</p>
-                <p><strong>Nascimento:</strong> ${formatarData(ator.nascimento)}</p>
-            </div>
-        `;
-    });
-}
+    function renderizarAtores(lista) {
+        gridAtores.innerHTML = "";
 
-function filtrarAtores() {
-    const textoBusca = campoBusca.value.toLowerCase().trim();
+        if (!lista || lista.length === 0) {
+            gridAtores.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #666; font-size: 15px; padding: 40px 0;">No actors found.</p>`;
+            return;
+        }
 
-  const atoresFiltrados = atores.filter((ator) =>
-        ator.nome.toLowerCase().includes(textoBusca)
-    );
+        lista.forEach((ator) => {
+            gridAtores.innerHTML += `
+                <div class="card-ator">
+                    <div class="foto-container">
+                        <img src="${ator.foto}" alt="${ator.nome}" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h2>${ator.nome}</h2>
+                        <div class="card-details">
+                            <span>${ator.pais || 'N/A'}</span>
+                            <span class="separator">•</span>
+                            <span>${formatarData(ator.nascimento)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
 
-    renderizarAtores(atoresFiltrados);
-}
-renderizarAtores(atores);
+    window.filtrarAtores = function() {
+        const textoBusca = campoBusca.value.toLowerCase().trim();
+
+        const atoresFiltrados = listaOriginal.filter((ator) =>
+            ator.nome.toLowerCase().includes(textoBusca)
+        );
+
+        renderizarAtores(atoresFiltrados);
+    };
+
+    renderizarAtores(listaOriginal);
+});
